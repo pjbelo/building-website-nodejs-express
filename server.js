@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cookieSession = require('cookie-session');
 
 const FeedbackService = require('./services/FeedbackService');
 const SpeakersService = require('./services/SpeakerService');
@@ -12,6 +13,14 @@ const routes = require('./routes');
 const app = express();
 
 const port = 3000;
+
+// trust reverse proxy servers like nginx
+app.set('trust proxy', 1);
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['dEd4dew342ED', 'DEDdgt7646JYg'],
+}))
 
 app.set('view engine', 'ejs');
 
