@@ -3,9 +3,12 @@ const express = require('express');
 
 const router = express.Router();
 
-module.exports = () => {
-    router.get('/', (request, response) => {
-        return response.send('Speakers List');
+module.exports = params => {
+    const { speakersService } = params;
+
+    router.get('/', async (request, response) => {
+        const speakers = await speakersService.getList();
+        return response.json(speakers);
     });
 
     router.get('/:shortname', (request, response) => {
